@@ -1,0 +1,41 @@
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+} from '@nestjs/common';
+import { OnibusService } from './onibus.service';
+import { Onibus } from '@prisma/client';
+
+@Controller('onibus')
+export class OnibusController {
+  constructor(private readonly onibusService: OnibusService) {}
+
+  @Post()
+  create(@Body() data: Omit<Onibus, 'id'>) {
+    return this.onibusService.create(data);
+  }
+
+  @Get()
+  findAll() {
+    return this.onibusService.findAll();
+  }
+
+  @Get(':id')
+  findById(@Param('id') id: string) {
+    return this.onibusService.findById(+id);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() data: Partial<Onibus>) {
+    return this.onibusService.update(+id, data);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.onibusService.delete(+id);
+  }
+}
