@@ -11,9 +11,20 @@ import { MotoristaService } from './motorista/motorista.service';
 import { OnibusService } from './onibus/onibus.service';
 import { MotoristaController } from './motorista/motorista.controller';
 import { OnibusController } from './onibus/onibus.controller';
+import { AuthModule } from './auth/auth.module';
+import { UsuarioModule } from './usuario/usuario.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [RotasModule, PrismaModule, MotoristaModule, OnibusModule],
+  imports: [
+    RotasModule,
+    PrismaModule,
+    MotoristaModule,
+    OnibusModule,
+    AuthModule,
+    UsuarioModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+  ],
   controllers: [
     AppController,
     RotasController,

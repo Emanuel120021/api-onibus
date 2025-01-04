@@ -1,4 +1,5 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { Motorista } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 

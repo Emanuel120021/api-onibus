@@ -6,11 +6,14 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { MotoristaService } from './motorista.service';
 import { Motorista } from '@prisma/client';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('motoristas')
+@UseGuards(AuthGuard('jwt'))
 export class MotoristaController {
   constructor(private readonly motoristaService: MotoristaService) {}
 

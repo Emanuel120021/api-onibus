@@ -6,11 +6,14 @@ import {
   Param,
   Put,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { OnibusService } from './onibus.service';
 import { Onibus } from '@prisma/client';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('onibus')
+@UseGuards(AuthGuard('jwt'))
 export class OnibusController {
   constructor(private readonly onibusService: OnibusService) {}
 
