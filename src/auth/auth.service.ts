@@ -12,7 +12,6 @@ export class AuthService {
 
   async validarUsuario(login: string, senha: string): Promise<any> {
     const usuario = await this.usuarioService.findByLogin(login);
-
     if (!usuario || usuario.senha !== senha) {
       throw new UnauthorizedException('Credenciais inválidas');
     }
@@ -24,6 +23,7 @@ export class AuthService {
     const payload = { login: usuario.login, id: usuario.id };
     return {
       access_token: this.jwtService.sign(payload),
+      usuario: usuario.nome,
     };
   }
 }

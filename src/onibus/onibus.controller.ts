@@ -13,11 +13,11 @@ import { Onibus } from '@prisma/client';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('onibus')
-@UseGuards(AuthGuard('jwt'))
 export class OnibusController {
   constructor(private readonly onibusService: OnibusService) {}
 
   @Post()
+  @UseGuards(AuthGuard('jwt'))
   create(@Body() data: Omit<Onibus, 'id'>) {
     return this.onibusService.create(data);
   }
@@ -28,16 +28,19 @@ export class OnibusController {
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard('jwt'))
   findById(@Param('id') id: string) {
     return this.onibusService.findById(+id);
   }
 
   @Put(':id')
+  @UseGuards(AuthGuard('jwt'))
   update(@Param('id') id: string, @Body() data: Partial<Onibus>) {
     return this.onibusService.update(+id, data);
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard('jwt'))
   delete(@Param('id') id: string) {
     return this.onibusService.delete(+id);
   }

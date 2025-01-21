@@ -13,7 +13,7 @@ export class UsuarioService {
   async create(
     data: Omit<Usuario, 'id'>,
   ): Promise<{ id: number; login: string; message: string }> {
-    // Verifica se já existe um ônibus com a mesma placa
+    // Verifica se já existe um usuário com o mesmo login
     const usuarioExiste = await this.prisma.usuario.findUnique({
       where: { login: data.login },
     });

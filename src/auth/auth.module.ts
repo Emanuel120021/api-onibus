@@ -14,10 +14,18 @@ import { JwtStrategy } from './strategies/jwt-strategy';
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>('JWT_TOKEN'),
-        signOptions: { expiresIn: '12h' },
-      }),
+      useFactory: async (configService: ConfigService) => {
+        const expiresIn = configService.get<string>('JWT_EXPIRES_IN');
+        if (!expiresIn.match(/^\d+[smhdw]$/)) {
+          throw new Error(
+            'JWT_EXPIRES_IN precisa estar nos seguintes formatos: <number>[s|m|h|d|w]',
+          );
+        }
+        return {
+          secret: configService.get<string>('JWT_TOKEN'),
+          signOptions: { expiresIn },
+        };
+      },
     }),
     UsuarioModule,
   ],
